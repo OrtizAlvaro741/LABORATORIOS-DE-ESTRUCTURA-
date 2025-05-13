@@ -1,0 +1,81 @@
+
+//SUMA EN SERIE 
+#include <iostream>
+using namespace std;
+int main()
+{
+    //Pedir el numero de los elementos 
+    int numero;
+    cout << "Ingrese el numero";
+    numero = sumaRecursiva(numero)
+    cin >> numero;
+
+    //Llamada
+    cout << "La suma es:" << numero ;
+   
+}
+//Declaracion de la funcion
+int sumaRecursiva(int n) {
+    if (n == 1)
+        return 1;
+    else
+        return sumaRecursiva(n - 1)+n;
+}
+
+
+
+
+
+
+
+
+
+//FACTORIAL
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int fact, n;   //El prototipo
+        cout << "Ingrese el valor de n:";
+        cin >> n;
+        fact = factorial(n);   //llamada a la funcion
+        cout << "El Factorial de un numero es:" << fact;
+}
+int factorial(int n) {  //declaracion de la funcion
+    if (n == 0)
+        return 1;
+    else
+        return factorial(n - 1) * n;
+}
+
+
+
+
+
+
+
+
+
+
+
+//FIBONNACI
+#include <iostream>
+using namespace std;
+int serieFibonnaci(int n);
+
+int main()
+{
+    int numero, result;
+    cout << "ingrese el numero:  ";
+    cin >> numero;
+    result = serieFibonnaci(numero);
+    cout << "El resultado segun la profe es:  " << numero << "es: " << result;
+}
+int serieFibonnaci(int n) {
+    if (n <= 1)
+        return n;//condicion base 
+    else 
+        return serieFibonnaci(n - 1) + serieFibonnaci(n - 2);
+}
