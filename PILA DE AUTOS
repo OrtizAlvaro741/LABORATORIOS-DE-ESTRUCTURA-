@@ -1,0 +1,177 @@
+//PILA DE AUTOS
+
+#include "stdafx.h"
+#include <iostream>
+#include "Pila.h"
+#include "TipoDato.h"
+using namespace std;
+void main()
+{
+	Pila autos;
+	TipoDato auto_;
+	int op;
+	do {
+		cout << "Menu" << endl;
+		cout << "1.- push carro" << endl;
+		cout << "2.- pop carro" << endl;
+		cout << "3.-ver ultimo carro" << endl;
+		cout << "4.-limpiar carro" << endl;
+		cout << "5.-ver carro" << endl;
+		cout << "0.- Salir " << endl;
+		cout << "Ingrese una opcion" << endl;
+
+		cin >> op;
+		switch (op) {
+		case 1:
+			cout << "Ingrese el nuemro chasis del auto";
+			cin >> auto_.id;
+			cout << "Ingrese uan descripcion: ";
+			cin >> auto_.descripcion;
+			autos.Apilar(auto_);
+			break;
+		case 2:
+			autos.Desapilar();
+			break;
+		case 3:
+			autos.CimaPila(auto_);
+			break;
+		case 4:
+			autos.LimpiarPila();
+			break;
+		case 5:
+			autos.VerPila();
+			break;
+		case 0:
+			cout << "Salir";
+			break;
+		default:
+			cout << "Error";
+			break;
+
+		}
+	} while (op != 0);
+
+
+
+
+
+
+
+
+
+
+//PILA.CPP
+}
+#include "stdafx.h"
+#include <iostream>
+#include "Pila.h"
+#include "TipoDato.h"
+
+using namespace std;
+
+Pila::Pila()
+{              cima = -1;        
+}
+
+bool Pila::Apilar(TipoDato &elemento)
+{
+	bool res;
+	if(cima == MAX-1)
+	{   cout << "Desbordamiento de Pila (Overflow)" << endl;
+	res=false; //return false;
+	}else
+
+	{cima++;
+	pila[cima] = elemento;
+	res = true; //return true;
+	}
+	return res;
+}
+
+bool Pila::Desapilar()
+{
+	bool res;
+	if(cima == -1)
+	{   cout << "Se esta intentando quitar un elemento de una pila vacia (underflow)" << endl;
+		res=false;
+	}else
+
+	{ cima--;
+	  res = true;
+	}
+	return res;
+}
+
+void Pila::VerPila()
+{
+	for(int i=0;i<=cima;i++)
+	{
+		cout << pila[i].id << endl;
+		cout << pila[i].descripcion << endl;
+	}
+}
+
+
+bool Pila::CimaPila(TipoDato &elemento)
+{
+	// Muestra el Elemento de la Cima
+	bool res;
+	if(PilaVacia())//(cima == -1)
+	{	cerr << "Se esta intentando quitar un elemento de una pila vacia (underflow)" << endl;
+		res = false;
+	}else
+
+	{	cout<< pila[cima].id;
+		cout << pila[cima].descripcion;
+		res = true;
+	}
+	return res;
+}
+
+bool Pila::PilaVacia()
+{
+return cima == -1;
+}
+
+void Pila::LimpiarPila()
+{
+cima = -1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//PILA.H
+#pragma once
+#include "stdafx.h"
+#include "TipoDato.h"
+
+#define MAX 100 //constante de compilar 
+/*/
+//                      pila.h
+/*/
+class Pila
+{
+   private:
+           TipoDato pila[MAX];
+           int cima;
+        
+   public:
+          Pila();
+          bool Apilar(TipoDato &elemento);
+          bool Desapilar();
+          bool CimaPila(TipoDato &elemento);
+          void LimpiarPila();
+          void VerPila();          
+          bool PilaVacia();
+          //bool Iguales(Pila p);
+   
+};
