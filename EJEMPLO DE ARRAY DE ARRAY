@@ -1,0 +1,129 @@
+//ARRAYDIARRAY
+#include <iostream>
+#include "fila.h"
+#include "Matriz.h"
+
+using namespace std;
+
+#define MAX 10
+
+// Prototipo
+void procesarDatos(Fila entrada[], int n, Matriz& salida, int& suma);
+
+int main() {
+    const int n = 3;
+    int suma = 0;
+    Fila entrada[MAX];
+
+    // Cargamos los datos manualmente en entrada
+    entrada[0].set(0, 2); entrada[0].set(1, 4); entrada[0].set(2, 6);
+    entrada[1].set(0, 8); entrada[1].set(1, 10); entrada[1].set(2, 12);
+    entrada[2].set(0, 14); entrada[2].set(1, 16); entrada[2].set(2, 18);
+
+    // Creamos matriz de salida n*n
+    Matriz salida(n * n, n);
+
+    procesarDatos(entrada, n, salida, suma);
+
+    cout << "Matriz Generada:" << endl;
+    salida.mostrar();
+
+    cout << "Suma total de elementos: " << suma << endl;
+
+    return 0;
+}
+
+// Función que genera la matriz final
+void procesarDatos(Fila entrada[], int n, Matriz& salida, int& suma) {
+    int filaSalida = 0;
+    for (int i = 0; i < n; i++) {        // recorrer filas de entrada
+        for (int j = 0; j < n; j++) {    // recorrer columnas
+            int valor = entrada[i].get(j);
+            for (int k = 0; k < n; k++) {
+                salida.setDato(filaSalida, k, valor);
+                suma = suma + valor;
+            }
+            filaSalida++;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+//MATRIZ.H 
+#pragma once
+#include<iostream>
+#include "Fila.h"
+
+#define MAX 10
+using namespace std;
+
+class Matriz {
+private:
+    Fila filas[MAX];
+    int totalFilas;
+    int columnas;
+
+public:
+    Matriz(int totalFilas_, int columnas_) {
+        totalFilas = totalFilas_;
+        columnas = columnas_;
+    }
+
+    void setDato(int i, int j, int valor) {
+        filas[i].set(j, valor);
+    }
+
+    int getDato(int i, int j) {
+        return filas[i].get(j);
+    }
+
+    void mostrar() {
+        for (int i = 0; i < totalFilas; i++) {
+            filas[i].mostrar(columnas);
+        }
+    }
+};
+
+
+
+
+
+
+
+
+
+
+//FILA.H
+#pragma once
+#include<iostream>
+
+#define MAX 10
+using namespace std;
+
+class Fila {
+private:
+    int elementos[MAX];
+
+public:
+    void set(int i, int valor) {
+        elementos[i] = valor;
+    }
+
+    int get(int i) {
+        return elementos[i];
+    }
+
+    void mostrar(int n) {
+        for (int i = 0; i < n; i++) {
+            cout << elementos[i] << "\t";
+        }
+        cout << endl;
+    }
+};
