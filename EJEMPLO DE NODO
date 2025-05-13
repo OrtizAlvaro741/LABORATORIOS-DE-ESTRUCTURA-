@@ -1,0 +1,119 @@
+//NODO.H
+#pragma once
+#include <string>
+using namespace std;
+
+class Nodo
+{
+public:
+	//Atributos
+	string estado;
+	//Metodos - polimorfismo
+	Nodo();
+	Nodo(string estadoTexto);
+	Nodo(); (string estadoTexto);
+
+};
+
+
+
+
+
+
+//PILA.H
+#define MAX 100
+#include "Nodo.h"
+
+class Pila
+{ //Atributos
+private :
+	Nodo pila[MAX];
+	int cima;
+public:
+	Pila();
+	void realizarCambio(string cambio);
+	void deshacer();
+	string verUltimoCambio();
+	bool estavacia();
+};
+
+
+
+
+
+
+
+//PILA.CPP
+#include "Pila.h"
+
+Pila::Pila() { //Constructor 
+	cima = -1;
+}
+void Pila::realizarCambio(string cambio) {
+	if (cima == MAX - 1)
+		cout << "Overflow. Pil llena" << endl;
+	else {
+		cima++;
+		pila[cima].estado = cambio;
+	}
+}
+void Pila::deshacer() {
+	if (Pila::estavacia())
+		cout << "La pila no tiene elementos" << endl;
+}
+
+string Pila::verUltimoCambio() {
+	//verCima
+	if (Pila::estavacia())
+		cout << "Pila esta vacia" << endl;
+	else
+	  return pila[cima].estado;
+}
+bool Pila::estavacia() {
+	if (cima == -1)
+		return true;
+	else
+		return false;
+	//return cima== -1 
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NODO.CPP
+#include "Nodo.h"
+#include <string>
+
+using namespace std;
+
+Nodo::Nodo() {
+	estado = "";
+}
+Nodo::Nodo(string estadoTexto) {
+	estado = estadoTexto;
+}
+
+
+
+
+
+//NODO EJEMPLO.CPP
+#include <iostream>
+
+int main()
+{
+    std::cout << "Hello World!\n";
+}
