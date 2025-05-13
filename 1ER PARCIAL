@@ -1,0 +1,151 @@
+//ExamenPArcial.cpp
+#include <iostream>
+#include "Pila.h"
+#include "Order.h"
+#include <string>
+
+using namespace std;
+int main()
+{
+    int opcion, base, exponente, n ;
+    int idPedido;
+    int idCliente;
+    string productos;
+    float total;
+
+
+    Pila pilita;
+
+    do {
+        cout << "====MENU====" << endl;
+        cout << "1.Recursiva de potencia" << endl;
+        cout << "2. Pila de impares " << endl;
+        cout << "3. Clase Order" << endl;
+        cout << "0.Salir" << endl;
+        cout << "Elija una opcion: " << endl;
+        cin >> opcion;
+
+        switch (opcion) {
+        case 1:
+            cout << "Ingresa la base a: " << endl;
+            cin >> base;
+            cout << "Ingrese el exponente b: " << endl;
+            cin >> exponente;
+            
+            int x = (base, exponente);
+            cout << "El Resultado es: " << x << endl;
+            break;
+        case 2:
+            cout << "Ingrese el numero de elementos a apilar" << endl;
+            cin >> n;
+            int impar = 1;
+            for (int i = 0; i < n; i++) {
+                pilita.apilar(impar);
+                impar = impar + 2;// Forma abreviada +=2
+            }
+            break;
+        case 3:
+            cout << "Ingrese el id del Pedido: " << endl;
+            cin >> idPedido;
+            cout << "Ingrese el id del Cliente: " << endl;
+            cin >> idCliente;
+            cout << "Ingrese el producto:" << endl;
+            cin >> productos;
+            break;
+        case 0:
+            cout << "Salir" << endl;
+            break;
+        default:
+            cout << "Error" << endl;
+        }
+        
+    } while (opcion != 0);
+
+
+
+    return 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Pila.h
+#pragma once
+class Pila
+{
+private:
+	int numero[100];
+	int cima;
+public:
+	Pila();
+	void apilar (int _numero);
+};
+
+
+
+
+
+
+
+
+
+
+//PILA.CPP
+#include "Pila.h"
+#include <iostream>
+using namespace std;
+Pila::Pila() {
+
+
+}
+void apilar(int _numero) {
+	if (int cima == 99)
+		cout << "Error al apilar" << endl;
+	
+	else
+	{
+		cima++;
+		numero
+	}
+}
+
+
+
+
+
+
+
+
+
+//ORDE.H
+#pragma once
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Order
+{
+private:
+	int idPedido;
+	int idCliente;
+	string producto;
+	float total;
+public: 
+
+   
+};
