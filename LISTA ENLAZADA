@@ -1,0 +1,123 @@
+
+// EjerciciodeListaEnlazada.cpp
+#include <iostream>
+#include "LinkedList.h"
+#include "Node.h"
+
+using namespace std;
+
+int main()
+{
+    string estudiantes[] = { "Ana", "Luis", "Maria", "Pecho" };
+    int notas[] = { 90, 40, 80, 30 };
+    int semestres[] = { 1, 3, 5, 7};
+    string carreras[] = { "Ing. Mecatronica", "Ing. Civil", "Derecho", "Comercio Internacional" };
+    int n = sizeof(notas) / sizeof(notas[0]);
+    LinkedList lista(estudiantes, notas, semestres, carreras, n);
+    lista.display();
+}
+
+
+
+
+
+
+//LinkedList.cpp
+#include "LinkedList.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+LinkedList::LinkedList() : first(nullptr) {}
+
+LinkedList::LinkedList(string A[], int B[], int C[], string D[],  int n): first(nullptr) {
+	Node* temp = nullptr;
+	Node* last = nullptr;
+	first = new Node();
+	first->nombre = A[0];
+	first->nota = B[0];
+	first->semestre = C[0];
+	first->carrera = D[0];
+	first->next = nullptr;
+	last = first;
+	for (int i = 1; i < n; i++) {
+		temp = new Node();
+		temp->nombre = A[i];
+		temp->nota = B[i];
+		temp->semestre = C[i];
+		temp->carrera = D[i];
+		temp->next = nullptr;
+		last->next = temp;
+		last = temp;
+	}
+}
+
+void LinkedList::insert(string A[], int B[], int C[], string D[], int n) {}
+
+void LinkedList::insert(int index, int valor) {}
+
+void LinkedList::remove(int A[], int n) {}
+
+void LinkedList::search(int A[], int n) {}
+
+int LinkedList::length() {
+	int i = 0;
+	Node* p = first;
+	while (p) {
+		i++;
+		p = p->next;
+	}
+	return i;
+}
+
+int LinkedList::mayor() {
+	int mayor = first->nota;
+	Node* p = first;
+	for (int i = 0; i < length(); i++) {
+		
+	}
+	return 1;
+}
+
+int LinkedList::menor() {
+	return 1;
+}
+
+bool LinkedList::deleteNode(int index) {
+	
+	return false;
+}
+
+void LinkedList::display() {
+	Node* p = first;
+	while (p) {
+		cout << p->nombre << "\t" << p->nota << "\t" << p->semestre << "\t" << p->carrera << endl;
+		p = p->next;
+	}
+}
+
+
+
+
+
+//Node.h
+#pragma once
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Node
+{
+	public:
+		int nota;
+		int semestre;
+		string nombre;
+		string carrera;
+		Node* next;
+};
+
+
+
+
