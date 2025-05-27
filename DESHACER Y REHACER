@@ -1,0 +1,105 @@
+//NODO.CPP
+
+#include "Nodo.h"
+
+Nodo::Nodo() {
+	estado = "";
+}
+
+Nodo::Nodo(string estadoTexto) : estado{estadoTexto} {}
+
+
+//NODO.H 
+pragma once
+#include <iostream>
+
+using namespace std;
+
+class Nodo
+{
+	public:
+		string estado;
+		int id;
+		Nodo();
+		Nodo(string estadoTexto);
+};
+
+
+
+
+
+
+
+//PILA.CPP
+#include "Pila.h"
+#include <iostream>
+
+using namespace std;
+
+Pila::Pila() {
+	cima = -1;
+}
+
+bool Pila::realizarCambio(string& cambio) {
+	bool resultado = true;
+	if (cima == (MAX - 1))
+		resultado = false;
+	else {
+		cima++;
+		pila[cima].estado = cambio;
+	}
+	return resultado;
+}
+bool Pila::deshacer(Pila rehacer) {
+	int cima_rehacer = rehacer.get_cima();
+	bool resultado = true;
+	if (estaVacia() || cima_rehacer == (MAX-1))
+		resultado = false;
+	else {
+		cima_rehacer++;
+		rehacer.pila[cima_rehacer].estado = this->pila[cima].estado;
+		cima--;
+	}
+}
+bool Pila::rehacer(Pila cambios) {
+
+}
+string Pila::verUltimoCambio() {
+	return pila[cima].estado;
+}
+
+bool Pila::estaVacia() {
+	return cima == -1;
+}
+
+int Pila::get_cima() {
+	return cima;
+}
+
+
+
+// PILA.H
+#pragma once
+#include "Nodo.h"
+#include <iostream>
+
+using namespace std;
+
+#define MAX 100
+
+class Pila
+{
+	private:
+		Nodo pila[MAX];
+		int cima;
+	public:
+		Pila();
+		int get_cima();
+		bool realizarCambio(string& cambio);
+		bool deshacer(Pila rehacer);
+		bool rehacer(Pila cambios);
+		string verUltimoCambio();
+		bool estaVacia();
+		
+
+};
