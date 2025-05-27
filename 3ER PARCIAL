@@ -1,0 +1,199 @@
+
+
+// 3erParcial.cpp
+#include <iostream>
+#include "Numeros.h"
+
+using namespace std;
+
+int main()
+{
+    try {
+        Numeros arreglo;
+        int n = 0, opcion = 0;
+        do {
+            cout << "\tMenu\n";
+            cout << "1. Multiplos de 5\n";
+            cout << "2. Numeros primos\n";
+            cout << "0. Salir\n";
+            cout << "Opcion: ";
+            cin >> opcion;
+            switch (opcion) {
+            case 1:
+                do {
+                    cout << "Ingrese cuantos multiplos de 5 quiere generar: ";
+                    cin >> n;
+                    if (n <= 0)
+                        cout << "Error: tamaÃ±o invalido.\n";
+                } while (n <= 0);
+                arreglo.cargarMultiplos(n, 5);
+                arreglo.mostrarMultiplos();
+                break;
+            case 2:
+                do {
+                    cout << "Ingrese cuantos numeros primos quiere generar: ";
+                    cin >> n;
+                    if (n <= 0)
+                        cout << "Error: numero invalido.\n";
+                } while (n <= 0);
+                arreglo.cargarPrimos(n);
+                arreglo.mostrarPrimos();
+                break;
+            case 3:
+                break;
+            case 0:
+                cout << "Saliendo...\n";
+                break;
+            default:
+                cout << "Opcion invalida.\n";
+            }
+        } while (opcion != 0);
+        return 0;
+    }
+    catch (runtime_error& e) {
+        cerr << "Error: " << e.what() << '\n';
+        return 1;
+    }
+}
+
+
+
+
+
+
+
+//Multiplos.cpp
+#include "Multiplos.h"
+
+void Multiplos::generar(int n, int m) {
+    if (n <= 0 || m <= 0)
+        throw runtime_error{ "Argumentos invalidos." };
+    for (int i = 0; i < n; i++) {
+        numeros.push_back(i * m);
+    }
+}
+
+void Multiplos::mostrar() {
+    if (numeros.empty())
+        throw runtime_error{ "Vector vacio." };
+    cout << "i\ti/2\ti*2\n";
+    for (int multiplo : numeros) {
+        cout << multiplo << "\t" << float(multiplo) / 2 << "\t" << multiplo * 2 << endl;
+    }
+}
+
+
+
+
+
+//Multiplos.h 
+#pragma once
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class Multiplos
+{
+    private:
+        vector<int> numeros;
+    public:
+        void generar(int n, int m);
+        void mostrar();
+};
+
+
+
+
+
+
+
+//Numeros.cpp
+
+
+#include "Numeros.h"
+
+void Numeros::cargarMultiplos(int n, int m) {
+    numeros.clear();
+    if (n <= 0 || m <= 0)
+        throw runtime_error{ "Argumentos invalidos." };
+    for (int i = 0; i < n; i++) {
+        numeros.push_back(i * m);
+    }
+}
+
+void Numeros::mostrarMultiplos() {
+    if (numeros.empty())
+        throw runtime_error{ "Vector vacio." };
+    cout << "i\ti/2\ti*2\n";
+    for (int multiplo : numeros) {
+        cout << multiplo << "\t" << float(multiplo) / 2 << "\t" << multiplo * 2 << endl;
+    }
+}
+
+bool Numeros::esPrimo(int x) {
+    if (x < 2 || (x > 2 && x % 2 == 0))
+        return false;
+    for (int i = 3; i <= sqrt(x); i = i + 2)
+        if (x % i == 0)
+            return false;
+    return true;
+}
+
+void Numeros::cargarPrimos(int n) {
+    numeros.clear();
+    int i = 3, primos = 0;
+    numeros.push_back(2);
+    while (primos < n-1) {
+        if (esPrimo(i)) {
+            numeros.push_back(i);
+            primos++;
+        }
+        i = i + 2;
+    }
+}
+
+void Numeros::mostrarPrimos() {
+    if (numeros.empty())
+        throw runtime_error{ "Vector vacio." };
+    cout << "i\ti*i\ti*i*i\n";
+    for (int primo : numeros) {
+        cout << primo << "\t" << primo*primo << "\t" << primo*primo*primo << endl;
+    }
+
+
+
+
+
+
+
+
+
+
+
+//Numeros.h
+#pragma once
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class Numeros
+{
+	private:
+		vector<int> numeros;
+	public:
+		bool esPrimo(int x);
+		void cargarMultiplos(int n, int m);
+		void cargarPrimos(int n);
+		void mostrarMultiplos();
+		void mostrarPrimos();
+};
+
+
+
+
+
+
+
+
