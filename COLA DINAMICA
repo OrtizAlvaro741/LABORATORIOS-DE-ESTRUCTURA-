@@ -1,0 +1,195 @@
+
+//Cola.pp
+#include "Cola.h"
+
+Cola::Cola() : inicio(nullptr), fin(nullptr) {}
+
+Cola::~Cola() {
+	while (inicio) {
+		Nodo* temp = inicio;
+		inicio = inicio->siguiente;
+		delete temp;
+	}
+	fin = nullptr;
+}
+
+void Cola::queue(const Nodo& elemento) {
+	Nodo* temp = new Nodo(elemento.edad, elemento.nombre);
+	if (!inicio)
+		inicio=temp;
+	else
+		fin->siguiente = temp;
+	fin = temp;
+}
+
+void Cola::dequeue() {
+	if (inicio == nullptr)
+		throw runtime_error("Cola vacia.");
+	Nodo* temp = inicio;
+	if (inicio == fin)
+		fin = nullptr;
+	inicio = inicio->siguiente;
+	temp->siguiente = nullptr;	// Cortar el enlace
+	delete temp;
+	temp = nullptr;
+}
+
+Nodo Cola::front() const {
+	if (!inicio)
+		throw runtime_error{ "Cola vacia." };
+	return *inicio;
+}
+
+Nodo Cola::back() const {
+	if (!fin)
+		throw runtime_error{ "Cola vacia." };
+	return *fin;
+}
+
+int Cola::size() const {
+	int i = 0;
+	Nodo* actual=inicio;
+	while (actual) {
+		i++;
+		actual = actual->siguiente;
+	}
+	return i;
+}
+
+void Cola::show() const {
+	Nodo* actual = inicio;
+	cout << "Edad\tNombre\n";
+	while (actual) {
+		cout << actual->edad << "\t" << actual->nombre << endl;
+		actual = actual->siguiente;
+	}
+}
+
+
+
+
+// Cola.h
+#pragma once
+#include <iostream>
+#include "Nodo.h"
+
+class Cola
+{
+	private:
+		Nodo* inicio;
+		Nodo* fin;
+	public:
+		Cola();
+		~Cola();
+		void queue(const Nodo& elemento);
+		void dequeue();
+		Nodo front() const;
+		Nodo back() const;
+		int size() const;
+		void show() const;
+
+};
+
+//EjemploColaDinamica
+#include <iostream>
+#include "Cola.h"
+
+using namespace std;
+
+int main()
+{
+	try {
+		Cola personas;
+		Nodo persona;
+		int opcion;
+		do {
+			cout << "\tMenu\n";
+			cout << "1. Encolar\n";
+			cout << "2. Desencolar\n";
+			cout << "3. Ver Cola\n";
+			cout << "4. Primero en la cola\n";
+			cout << "5. Ultimo en la cola\n";
+			cout << "6. Cantidad de personas\n";
+			cout << "0. Salir\n";
+			cout << "Opcion: ";
+			cin >> opcion;
+			switch (opcion) {
+			case 1:
+				cout << "Nombre de la persona: ";
+				cin.ignore();
+				getline(cin, persona.nombre);
+				cout << "Edad: ";
+				cin >> persona.edad;
+				personas.queue(persona);
+				cout << "Persona encolada con exito.\n";
+				break;
+			case 2:
+				personas.dequeue();
+				cout << "Persona desencolada con exito.\n";
+				break;
+			case 3:
+				personas.show();
+				system("pause");
+				break;
+			case 4:
+				persona = personas.front();
+				cout << "Nombre: " << persona.nombre << endl;
+				cout << "Edad: " << persona.edad << endl;
+				break;
+			case 5:
+				persona = personas.back();
+				cout << "Nombre: " << persona.nombre << endl;
+				cout << "Edad: " << persona.edad << endl;
+				break;
+			case 6:
+				cout << "Hay " << personas.size() << " personas en la cola.\n";
+				break;
+			case 0:
+				cout << "Saliendo..\n";
+				break;
+			default:
+				cout << "Error: Opcion invalida.\n";
+			}
+
+		} while (opcion != 0);
+		return 0;
+	}
+	catch (runtime_error& e) {
+		cerr << "Error: " << e.what() << endl;
+		return 1;
+	}
+}
+
+
+
+//Nodo.cpp
+#include "Nodo.h"
+
+Nodo::Nodo() : edad(0), nombre(""), siguiente(nullptr) {}
+
+Nodo::Nodo(int edad, const string& nombre) {
+	this->edad = edad;
+	this->nombre = nombre;
+	siguiente = nullptr;
+}
+
+
+
+
+
+
+//Nodo.h
+#pragma once
+#include <string>
+
+using namespace std;
+
+class Nodo {
+	public:
+		int edad;
+		string nombre;
+		Nodo* siguiente;
+		Nodo();
+		Nodo(int edad, const string& nombre);
+};
+
